@@ -1,0 +1,64 @@
+﻿@model Bees.WebMVC.Models.BeeListModel
+@{
+    ViewData["Title"] = "Home Page";
+
+}
+<div class="text-center">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Type
+                </th>
+                <th>
+                    Health
+                </th>
+
+                <th>
+                    Status
+                </th>
+                <th>
+                    Damage
+                </th>
+                <th>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.BeeList.Count(); i++)
+            {
+                <form asp-controller="Home" asp-action="Index" method="POST">
+                    <tr>
+                        <td>
+                            <input type="number" value="@i" hidden="hidden" asp-for="Id" />
+                            @Html.DisplayFor(m => m.BeeList[i].BeeType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => m.BeeList[i].Health)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => m.BeeList[i].Status)
+                        </td>
+                        <td>
+                            <input type="number" max="100" min="0" value="0" asp-for="Damage" id="@i" />
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </td>
+                    </tr>
+                </form>
+            }
+        </tbody>
+    </table>
+
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+        </script>
+    }
+</div>
